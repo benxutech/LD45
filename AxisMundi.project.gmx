@@ -11,6 +11,7 @@
     <sprite>sprites\sprHover</sprite>
     <sprite>sprites\sprUltraNova</sprite>
     <sprite>sprites\sprSpeech</sprite>
+    <sprite>sprites\sprStar</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -21,6 +22,7 @@
     <object>objects\objBeginning</object>
     <object>objects\objUltraNova</object>
     <object>objects\objSpeech</object>
+    <object>objects\objCloudController</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>

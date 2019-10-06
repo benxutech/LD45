@@ -30,6 +30,7 @@ pulse = 0;
 hoverAlpha = 0;
 x = room_width/2;
 y = room_height/2;
+exploded = 0;
 </string>
           </argument>
         </arguments>
@@ -72,6 +73,18 @@ hoverAlpha = image_alpha-mouseDist/200+0.2;
 /*
 if (hoverAlpha &lt; hoverAlphaTarget) hoverAlpha += 0.01;
 if (hoverAlpha &gt; hoverAlphaTarget) hoverAlpha -= 0.01;*/
+
+// Explode
+if (mouse_check_button_pressed(mb_left)) {
+    if (mouseDist &lt; 48) {
+        un = instance_create(x,y,objUltraNova);
+        un.owner = id;
+    }
+}
+
+if (exploded == 1) {
+    visible = 0;
+}
 </string>
           </argument>
         </arguments>
