@@ -25,9 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>beg = instance_create(0,0,objBeginning);
-speech = instance_create(400,0,objSpeech);
-phase = 0;
+            <string>speech = instance_create(400,0,objSpeech);
+phase = -1;
+delay = 0;
 </string>
           </argument>
         </arguments>
@@ -50,14 +50,83 @@ phase = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (phase == 0) {
-    if (beg.exploded == 1) phase = 1;
+            <string>if (phase == -1) {
+    speech.text = "It's kind of boring here #isn't it?";
+    if (mouse_check_button_pressed(mb_left)) {
+        phase = 0;
+        beg = instance_create(0,0,objBeginning);
+    }
+}
+if (phase == 0) {
+    speech.text = "Hm? What's this?";
+    if (beg.exploded == 1) 
+    {
+        phase = 1;
+        instance_create(0,0,music);
+    }
 }
 if (phase == 1) {
     clouds = instance_create(room_width/2,room_height/2,objCloudController);
-    phase = 2;
+    phase = 1.05;
+}
+if (phase == 1.05) {
+    speech.text = "AHHHHHHHHHHHHHH#HHHGGGGGGH!!!!!!";
+    if (mouse_check_button_released(mb_left)) {
+        if (delay &lt;= 0) {
+            phase = 1.06;
+            delay = 15;
+        }
+    }
+}
+if (phase == 1.06) {
+    speech.text = "…Oh no. No no no!#I made another universe#by accident again!";
+    if (mouse_check_button_released(mb_left)) {
+        if (delay &lt;= 0) {
+            phase = 1.1;
+            delay = 15;
+        }
+    }
+}
+if (phase == 1.1) {
+    speech.text = "Ugh, I don't want# to deal with any more#"+'"lifeforms"'+".";
+    if (mouse_check_button_released(mb_left)) {
+        if (delay &lt;= 0) {
+            phase = 1.2;
+            delay = 15;
+        }
+    }
+}
+if (phase == 1.2) {
+    speech.text = "Let's just get rid# of them before they# begin to spread…";
+    if (mouse_check_button_released(mb_left)) {
+        if (delay &lt;= 0) {
+            phase = 2;
+            delay = 15;
+        }
+    }
+}
+if (phase == 2) {
+    speech.text = "Blow up the entire #universe!";
+    if (mouse_check_button_released(mb_left)) {
+        if (delay &lt;= 0) {
+            phase = 1.1;
+            delay = 15;
+        }
+    }
+    phase = 3;
+}
+if (phase == 3) {
+    nearest = instance_nearest(mouse_x,mouse_y, objStar);
+    if (instance_exists(objStar)) {
+        if (point_distance(mouse_x,mouse_y,nearest.x,nearest.y) &lt; 10) {
+            if (mouse_check_button_pressed(mb_left)) {
+                if (nearest.goExplode == 0) nearest.goExplode = 1;
+            }
+        }
+    }
 }
 
+if (delay &gt; 0) delay -= 1;
 </string>
           </argument>
         </arguments>

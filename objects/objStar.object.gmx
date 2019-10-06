@@ -29,6 +29,10 @@
 targetAlpha = 0.7+random(0.5);
 image_blend = c_white;
 choice = min(irandom(5),irandom(5))-1;
+growing = 1;
+pulseRate = 0.005+min(random(0.05),random(0.05),random(0.05));
+pulse = 0;
+brightness = 0.5-random(0.2);
 
 switch (choice) {
     case -1:
@@ -48,10 +52,10 @@ switch (choice) {
     break;
     case 4:
         image_blend = c_blue;
-    break;
-    
-    
+    break;    
 }
+
+goExplode = 0;
 </string>
           </argument>
         </arguments>
@@ -74,8 +78,36 @@ switch (choice) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (image_alpha &lt; targetAlpha) image_alpha += 0.5/fps;
+            <string>if (growing) {
+    if (image_alpha &lt; targetAlpha){ image_alpha += 0.5/fps;}
+    else {growing = 0;}
+}
+if (!growing) {
+    // Pulse
+    pulse += pulseRate;
+    if (pulse &gt; 0.5) {
+        pulseRate = pulseRate*-1;
+        pulse = 0.5;
+    }
+    if (pulse &lt; 0) {
+        pulseRate = pulseRate*-1;
+        pulse = 0;
+    }
+    image_alpha = brightness+pulse;
+}
 
+if (goExplode == 1) {
+    bar = instance_create(x,y+4,objBar);
+    goExplode = 2;
+}
+if (goExplode == 2) {
+    if (bar.done == 1) {
+        owner.dead += 1;
+        instance_create(x,y,objExplosion);
+        instance_destroy(bar);
+        instance_destroy();
+    }
+}
 </string>
           </argument>
         </arguments>

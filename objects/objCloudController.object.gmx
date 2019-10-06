@@ -32,7 +32,7 @@ grav = 10;
 
 
 // Create many 
-amountOfArms = 2;
+amountOfArms = 2+irandom(1);
 amountPerArm = 6;
 pX = 0; // pointer for integration
 pY = 0; 
@@ -48,8 +48,8 @@ for (i=0; i&lt;amountOfArms; i++) {
         pY = dsin(armDir+dir)*step;
         c = instance_create(x+pX, y+pY, objCloud);
         c.quota = 15-o
-        dir += 24+irandom(4)+o;
-        step += 40+irandom(2)-o*10;
+        dir += 24+irandom(4);
+        step += 40-o*10;
     }
     armDir += 360/amountOfArms+irandom(4);
 }

@@ -3,7 +3,7 @@
   <spriteName>sprSpeech</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-15</depth>
+  <depth>-5</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -25,13 +25,14 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>text = "Hm? What's this?";
+            <string>text = "";
+
 fade = 0;
 timeoutAmount = 14*fps;
 shaking = 0;
 
-textPosX = 20;
-textPosY = 50;
+textPosX = 18;
+textPosY = 45;
 
 originalX = x;
 originalY = y;
@@ -71,6 +72,8 @@ else {
     x = originalX;
     y = originalY;
 }
+
+//if (y &lt; 0) y += 2;
 </string>
           </argument>
         </arguments>
@@ -94,6 +97,7 @@ else {
           <argument>
             <kind>1</kind>
             <string>draw_self();
+draw_set_font(font0);
 draw_text(x+textPosX,y+textPosY,text);
 </string>
           </argument>

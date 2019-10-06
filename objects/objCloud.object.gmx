@@ -38,6 +38,8 @@ image_alpha = 1-random(0.2);
 maxDist = 40;
 
 quota = 10;
+alive = 0;
+dead = 0;
 </string>
           </argument>
         </arguments>
@@ -68,10 +70,13 @@ if (quota &gt; 0) {
         dist = random(2)+min(random(maxDist-2),random(maxDist-2));
         pX = dcos(dir)*dist;
         pY = dsin(dir)*dist;
-        instance_create(x+pX,y+pY,objStar);
-        quota -= 1
+        star = instance_create(x+pX,y+pY,objStar);
+        star.owner = id;
+        quota -= 1;
+        alive += 1;
     }
 }
+image_alpha = 1-dead/alive;
 
 if (s &gt; 1) {s -= 0.001}
 image_xscale = s;

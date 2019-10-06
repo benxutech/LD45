@@ -53,32 +53,35 @@ exploded = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// Pulse the alpha
-pulse += pulseRate;
-if (pulse &gt; 0.5) {
-    pulseRate = -0.01;
-    pulse = 0.5;
-}
-if (pulse &lt; 0) {
-    pulseRate = 0.01;
-    pulse = 0;
-}
-
-image_alpha = pulse+random(0.2);
-image_speed = 0.35;
-
-// Hover
-mouseDist = point_distance(x,y,mouse_x,mouse_y);
-hoverAlpha = image_alpha-mouseDist/200+0.2;
-/*
-if (hoverAlpha &lt; hoverAlphaTarget) hoverAlpha += 0.01;
-if (hoverAlpha &gt; hoverAlphaTarget) hoverAlpha -= 0.01;*/
-
-// Explode
-if (mouse_check_button_pressed(mb_left)) {
-    if (mouseDist &lt; 48) {
-        un = instance_create(x,y,objUltraNova);
-        un.owner = id;
+            <string>if (exploded == 0) {
+    // Pulse the alpha
+    pulse += pulseRate;
+    if (pulse &gt; 0.5) {
+        pulseRate = -0.01;
+        pulse = 0.5;
+    }
+    if (pulse &lt; 0) {
+        pulseRate = 0.01;
+        pulse = 0;
+    }
+    
+    image_alpha = pulse+random(0.2);
+    image_speed = 0.35;
+    
+    // Hover
+    mouseDist = point_distance(x,y,mouse_x,mouse_y);
+    hoverAlpha = image_alpha-mouseDist/200+0.2;
+    /*
+    if (hoverAlpha &lt; hoverAlphaTarget) hoverAlpha += 0.01;
+    if (hoverAlpha &gt; hoverAlphaTarget) hoverAlpha -= 0.01;*/
+    
+    // Explode
+    if (mouse_check_button_pressed(mb_left)) {
+        if (mouseDist &lt; 48) {
+            un = instance_create(x,y,objUltraNova);
+            un.owner = id;
+            audio_play_sound(sound3_ExplosionBig,0,0);
+        }
     }
 }
 
