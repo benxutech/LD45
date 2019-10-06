@@ -84,7 +84,16 @@ if (phase == 1.05) {
     }
 }
 if (phase == 1.06) {
-    speech.text = "…Oh no. No no no!#I made another universe#by accident again!";
+    speech.text = "…Oh no. No no no!";
+    if (mouse_check_button_released(mb_left)) {
+        if (delay &lt;= 0) {
+            phase = 1.07;
+            delay = 15;
+        }
+    }
+}
+if (phase == 1.07) {
+    speech.text = "I made another universe#by accident again!";
     if (mouse_check_button_released(mb_left)) {
         if (delay &lt;= 0) {
             phase = 1.1;
@@ -93,7 +102,7 @@ if (phase == 1.06) {
     }
 }
 if (phase == 1.1) {
-    speech.text = "Ugh, I don't want# to deal with any more#"+'"lifeforms"'+".";
+    speech.text = "Ugh, I don't want# to deal with any more #'lifeforms'.";
     if (mouse_check_button_released(mb_left)) {
         if (delay &lt;= 0) {
             phase = 1.2;
