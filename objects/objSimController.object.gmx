@@ -53,8 +53,13 @@ delay = 0;
             <string>if (phase == -1) {
     speech.text = "It's kind of boring here #isn't it?";
     if (mouse_check_button_pressed(mb_left)) {
-        phase = 0;
-        beg = instance_create(0,0,objBeginning);
+    
+        if (delay &lt;= 0) {
+            phase = 0;
+            delay = 15;
+            if (instance_exists(objBeginning)) instance_destroy(beg);
+            beg = instance_create(0,0,objBeginning);
+        }
     }
 }
 if (phase == 0) {
@@ -62,7 +67,7 @@ if (phase == 0) {
     if (beg.exploded == 1) 
     {
         phase = 1;
-        instance_create(0,0,music);
+        if (!instance_exists(music)) instance_create(0,0,music);
     }
 }
 if (phase == 1) {
@@ -97,7 +102,7 @@ if (phase == 1.1) {
     }
 }
 if (phase == 1.2) {
-    speech.text = "Let's just get rid# of them before they# begin to spread…";
+    speech.text = "Let's just get rid#of them before they#begin to spread…";
     if (mouse_check_button_released(mb_left)) {
         if (delay &lt;= 0) {
             phase = 2;
@@ -107,12 +112,6 @@ if (phase == 1.2) {
 }
 if (phase == 2) {
     speech.text = "Blow up the entire #universe!";
-    if (mouse_check_button_released(mb_left)) {
-        if (delay &lt;= 0) {
-            phase = 1.1;
-            delay = 15;
-        }
-    }
     phase = 3;
 }
 if (phase == 3) {
@@ -122,6 +121,46 @@ if (phase == 3) {
             if (mouse_check_button_pressed(mb_left)) {
                 if (nearest.goExplode == 0) nearest.goExplode = 1;
             }
+        }
+    }
+    if (!instance_exists(objStar)) {
+        phase = 4;
+    }
+}
+
+if (phase == 4) {
+    speech.text = "Ahh, that's much #better.";
+    if (mouse_check_button_released(mb_left)) {
+        if (delay &lt;= 0) {
+            phase = 4.1;
+            delay = 15;
+        }
+    }
+}
+if (phase == 4.1) {
+    speech.text = "I can finally relax #again.";
+    if (mouse_check_button_released(mb_left)) {
+        if (delay &lt;= 0) {
+            phase = 4.2;
+            delay = 15;
+        }
+    }
+}
+if (phase == 4.2) {
+    speech.text = "...";
+    if (mouse_check_button_released(mb_left)) {
+        if (delay &lt;= 0) {
+            phase = 4.3;
+            delay = 15;
+        }
+    }
+}
+if (phase == 4.3) {
+    speech.text = "... ...";
+    if (mouse_check_button_released(mb_left)) {
+        if (delay &lt;= 0) {
+            phase = -1;
+            delay = 15;
         }
     }
 }
