@@ -25,42 +25,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>CoGX = room_width/2;  // Center of gravity
-CoGY = room_height/2;
-
-grav = 10;
-
-clouds = ds_list_create();
-
-// Create many 
-amountOfArms = 2+irandom(1);
-amountPerArm = 6;
-pX = 0; // pointer for integration
-pY = 0; 
-armDir = irandom(360);
-dir = 0;
-step = 0;
-for (i=0; i&lt;amountOfArms; i++) {
-    step = 0;
-    dir = 0;
-    currentAmountPerArm = amountPerArm-1+irandom(2);
-    for (o=0; o&lt;currentAmountPerArm; o++) {
-        pX = dcos(armDir+dir)*step;
-        pY = dsin(armDir+dir)*step;
-        c = instance_create(x+pX, y+pY, objCloud);
-        c.quota = 15-o
-        ds_list_add(clouds, c);
-        dir += 24+irandom(4);
-        step += 40-o*10;
-    }
-    armDir += 360/amountOfArms+irandom(4);
-}
+            <string>c = instance_create(room_width/2,room_height/2,objCloudController);
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="1" enumb="0">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -77,9 +48,34 @@ for (i=0; i&lt;amountOfArms; i++) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>for(i=0; i&lt;ds_list_size(clouds); i++) {
-    instance_destroy(clouds[|i]);
+            <string>if (mouse_check_button_released(mb_left)) {
+    instance_destroy(c);
+    instance_create(room_width/2,room_height/2,objExplosion);
+    c = instance_create(room_width/2,room_height/2,objCloudController);
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_text(0,0,"Galaxy mode.#Left click to generate new galaxy.");
 </string>
           </argument>
         </arguments>
